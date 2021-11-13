@@ -8,8 +8,8 @@ class Contenedor{
     //Cargar elementos al arreglo de Productos
     async loadArray(){
         //Obtenemos la información del archivo
-        if(fs.existsSync(`${this.url}`)){
-            const contenido = await fs.promises.readFile(`${this.url}`,'utf-8');
+        if(fs.existsSync(this.url)){
+            const contenido = await fs.promises.readFile(this.url,'utf-8');
             //Lo almacenamos en el arreglo de Productos
             this.arregloProductos=(JSON.parse(contenido));
         }
@@ -26,7 +26,7 @@ class Contenedor{
             //Agregamos el objeto al arreglo
             this.arregloProductos = [...this.arregloProductos,data]
             //Guardamos el arreglo actualizado en el archivo
-            await fs.promises.writeFile(`${this.url}`,JSON.stringify(this.arregloProductos,"",2));
+            await fs.promises.writeFile(this.url,JSON.stringify(this.arregloProductos,"",2));
             //Devolvemos el ID creado
             return data.id;
         } catch (error) {
@@ -69,7 +69,7 @@ class Contenedor{
                 return producto.id !== id;
             });
             //Guardamos el arreglo actualizado en el archivo
-            await fs.promises.writeFile(`${this.url}`,JSON.stringify(this.arregloProductos,"",2));
+            await fs.promises.writeFile(this.url,JSON.stringify(this.arregloProductos,"",2));
         } catch (error) {
             console.log(error);
         }
@@ -78,7 +78,7 @@ class Contenedor{
     async deleteAll(){
         try {
             //Guardamos el arreglo vacío en el archivo
-            await fs.promises.unlink(`${this.url}`);
+            await fs.promises.unlink(this.url);
         } catch (error) {
             console.log(error);
         }
